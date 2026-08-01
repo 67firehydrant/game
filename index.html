@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEON PULSE: Space Arcade Shooter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>NEON PULSE</h1>
+        <p>GALAXY ARCADE SHOOTER &bull; GITHUB PAGES EDITION</p>
+    </header>
+
+    <div id="game-container">
+        <!-- In-game HUD -->
+        <div id="hud">
+            <div class="hud-group">
+                <div class="hud-item">
+                    <span class="label">SCORE</span>
+                    <span class="value" id="score-value">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">WAVE</span>
+                    <span class="value" id="wave-value">1</span>
+                </div>
+            </div>
+
+            <div class="hud-group">
+                <div class="hud-item">
+                    <span class="label">HIGH SCORE</span>
+                    <span class="value" id="highscore-value">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">SHIELD / HP</span>
+                    <div id="health-bar-container">
+                        <div id="health-bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Game Overlay -->
+        <div id="start-overlay" class="overlay">
+            <h2>NEON PULSE 2026</h2>
+            <p>
+                Kalahkan gelombang kapal musuh asing di angkasa cyberpunk! 
+                Kumpulkan power-up untuk meningkatkan kekuatan tembakanmu dan bertahanlah selama mungkin.
+            </p>
+            <button class="btn" id="start-btn">MAIN SEKARANG 🚀</button>
+        </div>
+
+        <!-- Game Over Overlay -->
+        <div id="gameover-overlay" class="overlay hidden">
+            <h2>GAME OVER</h2>
+            <p>Kapalmu telah hancur dalam pertempuran!</p>
+            <div class="stats-box">
+                <div>
+                    <span class="label">SKOR AKHIR</span>
+                    <span class="value" id="final-score">0</span>
+                </div>
+                <div>
+                    <span class="label">WAVE</span>
+                    <span class="value" id="final-wave">1</span>
+                </div>
+                <div>
+                    <span class="label">HIGH SCORE</span>
+                    <span class="value" id="final-highscore">0</span>
+                </div>
+            </div>
+            <button class="btn" id="restart-btn">MAIN LAGI 🔄</button>
+        </div>
+
+        <!-- Game Canvas -->
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+    </div>
+
+    <!-- Mobile Touch Controls -->
+    <div id="touch-controls">
+        <div class="touch-btn" id="btn-left">⬅️</div>
+        <div class="touch-btn" id="btn-fire">🔥</div>
+        <div class="touch-btn" id="btn-right">➡️</div>
+    </div>
+
+    <footer>
+        <span><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> / <kbd>&larr;</kbd> <kbd>&rarr;</kbd> <kbd>&uarr;</kbd> <kbd>&darr;</kbd> : Bergerak</span>
+        <span><kbd>Mouse / Touch</kbd> : Drag kapal</span>
+        <span>⚡ Power-up: 2X Shot, Rapid Fire, Shield, Heal</span>
+    </footer>
+
+    <script src="game.js"></script>
+</body>
+</html>

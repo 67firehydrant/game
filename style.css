@@ -1,0 +1,291 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    background: #0b0c10;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Background star grid glow */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #1f2833 0%, #0b0c10 80%);
+    z-index: 0;
+}
+
+header {
+    z-index: 10;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #66fcf1;
+    text-shadow: 0 0 10px rgba(102, 252, 241, 0.8), 0 0 20px rgba(102, 252, 241, 0.4);
+    margin-bottom: 4px;
+}
+
+header p {
+    font-size: 13px;
+    color: #c5c6c7;
+    letter-spacing: 1px;
+}
+
+#game-container {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    max-width: 95vw;
+    max-height: 75vh;
+    border: 2px solid #45a29e;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(69, 162, 158, 0.4);
+    overflow: hidden;
+    background-color: #000;
+    z-index: 10;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: crosshair;
+}
+
+/* UI Overlays inside Game Container */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 12, 16, 0.85);
+    backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+    text-align: center;
+}
+
+.overlay.hidden {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.overlay h2 {
+    font-size: 38px;
+    color: #66fcf1;
+    text-shadow: 0 0 15px rgba(102, 252, 241, 0.7);
+    margin-bottom: 15px;
+}
+
+.overlay p {
+    color: #c5c6c7;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 480px;
+    margin-bottom: 25px;
+}
+
+.overlay .stats-box {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 25px;
+    background: rgba(31, 40, 51, 0.8);
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: 1px solid #45a29e;
+}
+
+.stats-box div {
+    display: flex;
+    flex-direction: column;
+}
+
+.stats-box .label {
+    font-size: 11px;
+    color: #c5c6c7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stats-box .value {
+    font-size: 22px;
+    font-weight: bold;
+    color: #66fcf1;
+}
+
+.btn {
+    background: linear-gradient(135deg, #45a29e, #66fcf1);
+    color: #0b0c10;
+    border: none;
+    padding: 12px 36px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(102, 252, 241, 0.6);
+    transition: all 0.2s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 25px rgba(102, 252, 241, 0.9);
+    background: linear-gradient(135deg, #66fcf1, #ffffff);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* In-game HUD */
+#hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 15;
+    pointer-events: none;
+}
+
+#hud .hud-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.hud-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.hud-item .label {
+    font-size: 11px;
+    color: #45a29e;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.hud-item .value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+#health-bar-container {
+    width: 140px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid #45a29e;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+#health-bar-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #66fcf1, #45a29e);
+    transition: width 0.2s ease, background 0.2s ease;
+}
+
+/* Footer / Controls help */
+footer {
+    z-index: 10;
+    margin-top: 12px;
+    text-align: center;
+    font-size: 13px;
+    color: #c5c6c7;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+footer span {
+    background: rgba(31, 40, 51, 0.7);
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(69, 162, 158, 0.3);
+}
+
+footer kbd {
+    background: #45a29e;
+    color: #0b0c10;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-family: inherit;
+}
+
+/* Touch controls for mobile */
+#touch-controls {
+    display: none;
+    z-index: 10;
+    margin-top: 15px;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    #touch-controls {
+        display: flex;
+    }
+    header h1 {
+        font-size: 22px;
+    }
+    #game-container {
+        height: 480px;
+    }
+}
+
+.touch-btn {
+    width: 65px;
+    height: 65px;
+    background: rgba(69, 162, 158, 0.3);
+    border: 2px solid #66fcf1;
+    border-radius: 50%;
+    color: #66fcf1;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.touch-btn:active {
+    background: rgba(102, 252, 241, 0.6);
+    color: #000;
+}
